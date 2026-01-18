@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Dashboard - Enhanced T2</title>
+    <link rel="stylesheet" href="dashboard-enhanced.css">
+</head>
+<body>
+    <div class="app-container" id="appContainer">
+        <!-- Main Menu Screen (T1) -->
+        <div class="screen" id="menuScreen">
+            <h1 class="title">Productivity Dashboard</h1>
+            <div class="menu-buttons">
+                <button class="menu-btn dashboard-btn" onclick="navigateTo('dashboard')">Dashboard</button>
+                <button class="menu-btn charts-btn" onclick="navigateTo('charts')">Charts</button>
+                <button class="menu-btn gamified-btn" onclick="navigateTo('gamified')">Gamified View</button>
+                <button class="menu-btn settings-btn" onclick="navigateTo('settings')">Settings</button>
+            </div>
+            <div class="feature-badge">T1: Menu Interface ✓</div>
+        </div>
+
+        <!-- Enhanced Dashboard Screen (T2) -->
+        <div class="screen hidden" id="dashboardScreen">
+            <button class="back-btn" onclick="navigateTo('menu')">← Back</button>
+            <h2 class="screen-title">Dashboard - Multi-Type Habit Logging</h2>
+            
+            <!-- Habit Type Selection -->
+            <div class="habit-types-section">
+                <h3>Select Habit:</h3>
+                <div class="habit-type-buttons">
+                    <button class="habit-type-btn active" data-habit="Exercise" data-type="binary" onclick="selectHabit('Exercise', 'binary')">Exercise</button>
+                    <button class="habit-type-btn" data-habit="Water" data-type="count" onclick="selectHabit('Water', 'count')">Water</button>
+                    <button class="habit-type-btn" data-habit="Reading" data-type="duration" onclick="selectHabit('Reading', 'duration')">Reading</button>
+                    <button class="habit-type-btn" data-habit="Push-ups" data-type="count" onclick="selectHabit('Push-ups', 'count')">Push-ups</button>
+                    <button class="habit-type-btn" data-habit="Meditation" data-type="duration" onclick="selectHabit('Meditation', 'duration')">Meditation</button>
+                    <button class="habit-type-btn" data-habit="Study" data-type="duration" onclick="selectHabit('Study', 'duration')">Study</button>
+                </div>
+            </div>
+
+            <!-- Input Controls Section -->
+            <div class="input-controls-section">
+                <div class="input-instruction" id="inputInstruction">
+                    Selected: <span id="selectedHabit">Exercise</span> - <span id="inputType">Check if completed</span>
+                </div>
+
+                <!-- Binary Input (Checkbox) -->
+                <div class="input-control binary-input" id="binaryInput">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="binaryCheckbox">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-label">Completed today</span>
+                    </label>
+                </div>
+
+                <!-- Count Input (Numeric) -->
+                <div class="input-control count-input hidden" id="countInput">
+                    <label for="countValue">Count:</label>
+                    <input type="number" id="countValue" min="1" max="999" placeholder="e.g., 8">
+                    <span class="unit-label" id="countUnit">times</span>
+                </div>
+
+                <!-- Duration Input (Minutes) -->
+                <div class="input-control duration-input hidden" id="durationInput">
+                    <label for="durationValue">Duration (minutes):</label>
+                    <input type="number" id="durationValue" min="1" max="999" placeholder="e.g., 30">
+                    <span class="unit-label">minutes</span>
+                </div>
+
+                <button class="log-btn" onclick="logHabitEnhanced()">Log Habit</button>
+            </div>
+
+            <!-- Logged Habits List -->
+            <div class="habits-list-section">
+                <h3 class="list-title">Today's Habits (<span id="habitCount">0</span> logged):</h3>
+                <ul id="habitsList" class="habits-list">
+                    <li class="empty-message">No habits logged yet. Start tracking!</li>
+                </ul>
+            </div>
+
+            <!-- Feedback Animation -->
+            <div class="feedback-overlay hidden" id="feedbackOverlay">
+                <div class="feedback-animation">
+                    <div class="feedback-circle"></div>
+                    <div class="feedback-text">Logged! ✓</div>
+                </div>
+            </div>
+
+            <div class="feature-badge">T2: Enhanced Habit Logging ✓</div>
+        </div>
+
+        <!-- Charts Screen (Placeholder) -->
+        <div class="screen hidden" id="chartsScreen">
+            <button class="back-btn" onclick="navigateTo('menu')">← Back</button>
+            <h2 class="screen-title">Charts View</h2>
+            <div class="placeholder-content">
+                <div class="placeholder-icon">📊</div>
+                <h3>Charts and Analytics</h3>
+                <p>[Placeholder Screen]</p>
+                <p class="placeholder-text">
+                    Bar charts, line graphs, and trend visualizations<br>
+                    will be displayed here.
+                </p>
+            </div>
+        </div>
+
+        <!-- Gamified Screen (Placeholder) -->
+        <div class="screen hidden" id="gamifiedScreen">
+            <button class="back-btn" onclick="navigateTo('menu')">← Back</button>
+            <h2 class="screen-title">Gamified View</h2>
+            <div class="placeholder-content">
+                <div class="placeholder-icon">🎮</div>
+                <h3>Gamification Features</h3>
+                <p>[Placeholder Screen]</p>
+                <p class="placeholder-text">
+                    XP, Levels, Achievements, Streaks,<br>
+                    and Rewards will be displayed here.
+                </p>
+            </div>
+        </div>
+
+        <!-- Settings Screen (Placeholder) -->
+        <div class="screen hidden" id="settingsScreen">
+            <button class="back-btn" onclick="navigateTo('menu')">← Back</button>
+            <h2 class="screen-title">Settings</h2>
+            <div class="placeholder-content">
+                <div class="placeholder-icon">⚙️</div>
+                <h3>Application Settings</h3>
+                <p>[Placeholder Screen]</p>
+                <p class="placeholder-text">
+                    Preferences, notifications, themes,<br>
+                    and other settings will be displayed here.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <h4>T2 Enhanced Features</h4>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Binary Habits:</strong> Yes/No checkboxes (Exercise, etc.)
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Count-Based:</strong> Numeric input (Water, Push-ups)
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Duration-Based:</strong> Time tracking (Reading, Study)
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Backend Model:</strong> Data persistence with HabitModel
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Feedback:</strong> Animated confirmation on logging
+        </div>
+        <div class="tech-note">
+            <strong>Note:</strong> This web preview demonstrates the C++ SFML implementation.<br>
+            See <code>cpp-dashboard/DashboardScreenEnhanced.hpp</code> for the actual C++ code.
+        </div>
+    </div>
+
+    <script src="dashboard-enhanced.js"></script>
+</body>
+</html>
