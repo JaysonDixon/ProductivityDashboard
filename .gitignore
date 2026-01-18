@@ -1,0 +1,61 @@
+# Build directories
+build/
+bin/
+obj/
+out/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake
+!CMakeLists.txt
+
+# Compiled files
+*.exe
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.a
+*.lib
+
+# IDE files
+.vs/
+.vscode/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
+
+# Data files (optional - uncomment if you want to ignore habit data)
+# habit_log.txt
+# gamification.txt
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# Personal documents (already in repo but listing for reference)
+*.pdf
+*.docx
+*.pptx
+
+# User-specific
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

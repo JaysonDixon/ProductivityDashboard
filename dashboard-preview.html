@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Dashboard - T1 & T2 Preview</title>
+    <link rel="stylesheet" href="dashboard-preview.css">
+</head>
+<body>
+    <div class="app-container" id="appContainer">
+        <!-- Main Menu Screen (T1) -->
+        <div class="screen" id="menuScreen">
+            <h1 class="title">Productivity Dashboard</h1>
+            <div class="menu-buttons">
+                <button class="menu-btn dashboard-btn" onclick="navigateTo('dashboard')">Dashboard</button>
+                <button class="menu-btn charts-btn" onclick="navigateTo('charts')">Charts</button>
+                <button class="menu-btn gamified-btn" onclick="navigateTo('gamified')">Gamified View</button>
+                <button class="menu-btn settings-btn" onclick="navigateTo('settings')">Settings</button>
+            </div>
+            <div class="feature-badge">T1: Menu Interface ✓</div>
+        </div>
+
+        <!-- Dashboard Screen (T2) -->
+        <div class="screen hidden" id="dashboardScreen">
+            <button class="back-btn" onclick="navigateTo('menu')">← Back</button>
+            <h2 class="screen-title">Dashboard - Habit Logging</h2>
+            
+            <div class="habit-input-section">
+                <label for="habitInput" class="input-label">Enter habit name:</label>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="habitInput" 
+                        class="habit-input" 
+                        placeholder="e.g., Exercise, Reading, Meditation..."
+                        maxlength="30"
+                        onkeypress="handleEnter(event)"
+                    />
+                    <button class="log-btn" onclick="logHabit()">Log Habit</button>
+                </div>
+            </div>
+
+            <div class="habits-list-section">
+                <h3 class="list-title">Logged Habits Today:</h3>
+                <ul id="habitsList" class="habits-list">
+                    <li class="empty-message">No habits logged yet. Start tracking!</li>
+                </ul>
+            </div>
+
+            <div class="feature-badge">T2: Habit Logging ✓</div>
+        </div>
+
+        <!-- Charts Screen (Placeholder) -->
+        <div class="screen hidden" id="chartsScreen">
+            <button class="back-btn" onclick="navigateTo('menu')">← Back</button>
+            <h2 class="screen-title">Charts View</h2>
+            <div class="placeholder-content">
+                <div class="placeholder-icon">📊</div>
+                <h3>Charts and Analytics</h3>
+                <p>[Placeholder Screen]</p>
+                <p class="placeholder-text">
+                    Bar charts, line graphs, and trend visualizations<br>
+                    will be displayed here.
+                </p>
+            </div>
+        </div>
+
+        <!-- Gamified Screen (Placeholder) -->
+        <div class="screen hidden" id="gamifiedScreen">
+            <button class="back-btn" onclick="navigateTo('menu')">← Back</button>
+            <h2 class="screen-title">Gamified View</h2>
+            <div class="placeholder-content">
+                <div class="placeholder-icon">🎮</div>
+                <h3>Gamification Features</h3>
+                <p>[Placeholder Screen]</p>
+                <p class="placeholder-text">
+                    XP, Levels, Achievements, Streaks,<br>
+                    and Rewards will be displayed here.
+                </p>
+            </div>
+        </div>
+
+        <!-- Settings Screen (Placeholder) -->
+        <div class="screen hidden" id="settingsScreen">
+            <button class="back-btn" onclick="navigateTo('menu')">← Back</button>
+            <h2 class="screen-title">Settings</h2>
+            <div class="placeholder-content">
+                <div class="placeholder-icon">⚙️</div>
+                <h3>Application Settings</h3>
+                <p>[Placeholder Screen]</p>
+                <p class="placeholder-text">
+                    Preferences, notifications, themes,<br>
+                    and other settings will be displayed here.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <h4>Implementation Status</h4>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>T1 - Menu Interface:</strong> Responsive navigation with 4 buttons
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>T2 - Habit Logging:</strong> Text input with log functionality
+        </div>
+        <div class="tech-note">
+            <strong>Note:</strong> This is a web preview of the SFML C++ implementation.<br>
+            The actual app is built with SFML in C++. See <code>cpp-dashboard/README_T1_T2.md</code> for details.
+        </div>
+    </div>
+
+    <script src="dashboard-preview.js"></script>
+</body>
+</html>

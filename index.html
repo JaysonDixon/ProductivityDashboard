@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Productivity Dashboard</h1>
+            <div id="datetime"></div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="card task-card">
+                <h2>Tasks</h2>
+                <div class="task-input">
+                    <input type="text" id="taskInput" placeholder="Add a new task...">
+                    <button onclick="addTask()">Add</button>
+                </div>
+                <ul id="taskList"></ul>
+            </div>
+
+            <div class="card timer-card">
+                <h2>Pomodoro Timer</h2>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button onclick="startTimer()">Start</button>
+                    <button onclick="pauseTimer()">Pause</button>
+                    <button onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+
+            <div class="card notes-card">
+                <h2>Quick Notes</h2>
+                <textarea id="notes" placeholder="Write your notes here..."></textarea>
+                <button onclick="saveNotes()">Save Notes</button>
+            </div>
+
+            <div class="card stats-card">
+                <h2>Today's Stats</h2>
+                <div class="stat-item">
+                    <span class="stat-label">Tasks Completed:</span>
+                    <span class="stat-value" id="completedTasks">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Pomodoros:</span>
+                    <span class="stat-value" id="pomodoroCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Focus Time:</span>
+                    <span class="stat-value" id="focusTime">0 min</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

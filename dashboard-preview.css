@@ -1,0 +1,434 @@
+/* Dashboard Preview Styles - T1 & T2 Implementation */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.app-container {
+    width: 900px;
+    max-width: 95vw;
+    height: 650px;
+    background: #f0f0f5;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Menu Screen (T1) */
+.title {
+    text-align: center;
+    color: #333;
+    font-size: 42px;
+    margin-bottom: 60px;
+    font-weight: bold;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.menu-btn {
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+}
+
+.menu-btn:hover::before {
+    left: 100%;
+}
+
+.dashboard-btn {
+    background: linear-gradient(135deg, #4682b4 0%, #5a9fd4 100%);
+}
+
+.dashboard-btn:hover {
+    background: linear-gradient(135deg, #5a9fd4 0%, #6ab0e4 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(70, 130, 180, 0.4);
+}
+
+.dashboard-btn:active {
+    background: linear-gradient(135deg, #3672a4 0%, #4a8fc4 100%);
+    transform: translateY(0);
+}
+
+.charts-btn {
+    background: linear-gradient(135deg, #3cb371 0%, #4cc381 100%);
+}
+
+.charts-btn:hover {
+    background: linear-gradient(135deg, #4cc381 0%, #5cd391 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(60, 179, 113, 0.4);
+}
+
+.charts-btn:active {
+    background: linear-gradient(135deg, #2ca361 0%, #3cb371 100%);
+    transform: translateY(0);
+}
+
+.gamified-btn {
+    background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
+}
+
+.gamified-btn:hover {
+    background: linear-gradient(135deg, #ffa500 0%, #ffb732 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+}
+
+.gamified-btn:active {
+    background: linear-gradient(135deg, #e67c00 0%, #ff8c00 100%);
+    transform: translateY(0);
+}
+
+.settings-btn {
+    background: linear-gradient(135deg, #9370db 0%, #a380eb 100%);
+}
+
+.settings-btn:hover {
+    background: linear-gradient(135deg, #a380eb 0%, #b390fb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(147, 112, 219, 0.4);
+}
+
+.settings-btn:active {
+    background: linear-gradient(135deg, #8360cb 0%, #9370db 100%);
+    transform: translateY(0);
+}
+
+/* Dashboard Screen (T2) */
+.back-btn {
+    background: #666;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.back-btn:hover {
+    background: #555;
+}
+
+.screen-title {
+    color: #333;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.habit-input-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.input-label {
+    display: block;
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.input-group {
+    display: flex;
+    gap: 15px;
+}
+
+.habit-input {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.habit-input:focus {
+    outline: none;
+    border-color: #4682b4;
+    box-shadow: 0 0 0 3px rgba(70, 130, 180, 0.1);
+}
+
+.log-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #3cb371 0%, #4cc381 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.log-btn:hover {
+    background: linear-gradient(135deg, #4cc381 0%, #5cd391 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(60, 179, 113, 0.3);
+}
+
+.log-btn:active {
+    transform: translateY(0);
+}
+
+.habits-list-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.list-title {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.habits-list {
+    list-style: none;
+}
+
+.habits-list li {
+    padding: 12px 15px;
+    background: #f8f8f8;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border-left: 4px solid #4682b4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.empty-message {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    border-left: none !important;
+}
+
+.habit-number {
+    color: #4682b4;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Placeholder Screens */
+.placeholder-content {
+    text-align: center;
+    padding: 80px 40px;
+}
+
+.placeholder-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.placeholder-content h3 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.placeholder-content p {
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.placeholder-text {
+    color: #999;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Feature Badge */
+.feature-badge {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(60, 179, 113, 0.9);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Info Panel */
+.info-panel {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    align-self: flex-start;
+}
+
+.info-panel h4 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4682b4;
+    padding-bottom: 10px;
+}
+
+.status-item {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.status-check {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.status-item strong {
+    color: #4682b4;
+}
+
+.tech-note {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-left: 4px solid #ffa500;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.tech-note strong {
+    color: #ff8c00;
+}
+
+.tech-note code {
+    background: #e9ecef;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    body {
+        flex-direction: column;
+    }
+
+    .info-panel {
+        max-width: 900px;
+        width: 95vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        height: auto;
+        min-height: 600px;
+    }
+
+    .screen {
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 32px;
+        margin-bottom: 40px;
+    }
+
+    .menu-buttons {
+        gap: 20px;
+    }
+
+    .menu-btn {
+        height: 50px;
+        font-size: 18px;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .log-btn {
+        width: 100%;
+    }
+}
