@@ -1,0 +1,803 @@
+/* Dashboard Complete Navigation CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.app-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 900px;
+    min-height: 650px;
+    position: relative;
+    overflow: hidden;
+}
+
+.screen {
+    padding: 20px;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Navigation Bar - NEW */
+.nav-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(240, 240, 245, 0.5);
+    border-radius: 10px;
+}
+
+.nav-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.menu-nav {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.dashboard-nav {
+    background: linear-gradient(135deg, #4682b4 0%, #5a9fd4 100%);
+}
+
+.charts-nav {
+    background: linear-gradient(135deg, #3cb371 0%, #5fd48f 100%);
+}
+
+.gamified-nav {
+    background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
+}
+
+.settings-nav {
+    background: linear-gradient(135deg, #9370db 0%, #b593f9 100%);
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+/* Menu Screen */
+.title {
+    text-align: center;
+    font-size: 42px;
+    margin: 60px 0 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.menu-btn {
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-btn {
+    background: linear-gradient(135deg, #4682b4 0%, #5a9fd4 100%);
+}
+
+.charts-btn {
+    background: linear-gradient(135deg, #3cb371 0%, #5fd48f 100%);
+}
+
+.gamified-btn {
+    background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
+}
+
+.settings-btn {
+    background: linear-gradient(135deg, #9370db 0%, #b593f9 100%);
+}
+
+.menu-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Screen Title */
+.screen-title {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Dashboard - Habit Types */
+.habit-types-section {
+    margin-bottom: 30px;
+}
+
+.habit-types-section h3 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.habit-type-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.habit-type-btn {
+    padding: 15px;
+    border: 2px solid #6495ed;
+    background: white;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #6495ed;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.habit-type-btn:hover {
+    background: #e6f0ff;
+    transform: translateY(-2px);
+}
+
+.habit-type-btn.active {
+    background: linear-gradient(135deg, #6495ed 0%, #7ea5ed 100%);
+    color: white;
+    border-color: #6495ed;
+}
+
+/* Input Controls */
+.input-controls-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.input-instruction {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.input-instruction span {
+    color: #6495ed;
+    font-weight: 700;
+}
+
+.input-control {
+    margin: 20px 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.count-input, .duration-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.count-input input, .duration-input input {
+    width: 120px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.unit-label {
+    color: #888;
+    font-size: 14px;
+}
+
+.log-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #3cb371 0%, #5fd48f 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.log-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(60, 179, 113, 0.4);
+}
+
+/* Habits List */
+.habits-list-section {
+    margin-top: 20px;
+}
+
+.list-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.habits-list {
+    list-style: none;
+    padding: 0;
+}
+
+.habit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.habit-icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.habit-name {
+    flex: 1;
+    font-weight: 600;
+    color: #333;
+}
+
+.habit-value {
+    color: #3cb371;
+    font-weight: 600;
+    margin-right: 15px;
+}
+
+.habit-time {
+    color: #999;
+    font-size: 14px;
+}
+
+.empty-message {
+    text-align: center;
+    color: #999;
+    padding: 30px;
+    font-style: italic;
+}
+
+/* Feedback Animation */
+.feedback-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.feedback-animation {
+    text-align: center;
+}
+
+.feedback-circle {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #3cb371 0%, #5fd48f 100%);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: scaleIn 0.5s ease;
+}
+
+.feedback-text {
+    font-size: 28px;
+    color: white;
+    font-weight: 700;
+    animation: fadeInText 0.5s ease 0.2s both;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Charts Screen */
+.charts-content {
+    padding: 20px;
+}
+
+.chart-container {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.chart-container h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.bar-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 200px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+}
+
+.bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.bar {
+    width: 50px;
+    background: linear-gradient(180deg, #3cb371 0%, #5fd48f 100%);
+    border-radius: 8px 8px 0 0;
+    transition: all 0.3s ease;
+    margin: 5px 0;
+}
+
+.bar:hover {
+    opacity: 0.8;
+    transform: scaleY(1.05);
+}
+
+.bar-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.bar-value {
+    font-size: 14px;
+    color: #3cb371;
+    font-weight: 700;
+}
+
+.stats-container {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.stats-container h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: #666;
+    font-weight: 600;
+}
+
+.stat-value {
+    color: #3cb371;
+    font-weight: 700;
+}
+
+/* Gamification Screen */
+.gamification-content {
+    padding: 20px;
+}
+
+.xp-section {
+    background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.xp-section h3 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.xp-bar {
+    width: 100%;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.xp-progress {
+    height: 100%;
+    background: white;
+    border-radius: 15px;
+    transition: width 0.5s ease;
+}
+
+.streak {
+    font-size: 24px;
+    margin-top: 15px;
+}
+
+.achievements-section {
+    margin-bottom: 30px;
+}
+
+.achievements-section h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.achievement {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.achievement.unlocked {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+}
+
+.achievement.locked {
+    opacity: 0.4;
+}
+
+.achievement-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.achievement-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+.leaderboard-section h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.leaderboard {
+    background: #f8f9fa;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-item.current-player {
+    background: linear-gradient(90deg, #e6f0ff 0%, #f0f8ff 100%);
+    font-weight: 700;
+}
+
+.rank {
+    font-size: 20px;
+    font-weight: 700;
+    color: #6495ed;
+    width: 40px;
+}
+
+.player-name {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+}
+
+.player-xp {
+    font-size: 16px;
+    color: #ff8c00;
+    font-weight: 700;
+}
+
+/* Settings Screen */
+.settings-content {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.setting-group {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.setting-group h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggle-switch input[type="checkbox"] {
+    width: 50px;
+    height: 28px;
+    margin-right: 15px;
+}
+
+.theme-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.theme-btn {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-btn.active {
+    background: #6495ed;
+    color: white;
+    border-color: #6495ed;
+}
+
+.goal-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.goal-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #6495ed;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.goal-btn:hover {
+    background: #5585dd;
+}
+
+.goal-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #6495ed;
+    min-width: 40px;
+    text-align: center;
+}
+
+.goal-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.export-btn {
+    background: #6495ed;
+    color: white;
+}
+
+.clear-btn {
+    background: #dc143c;
+    color: white;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.about-section p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+/* Info Panel */
+.info-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+}
+
+.info-panel h4 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.status-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    align-items: flex-start;
+}
+
+.status-check {
+    color: #3cb371;
+    font-size: 16px;
+}
+
+.tech-note {
+    margin-top: 15px;
+    padding: 15px;
+    background: #e6f0ff;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.tech-note code {
+    background: #d0e0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.feature-badge {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #3cb371 0%, #5fd48f 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(60, 179, 113, 0.3);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app-container {
+        max-width: 100%;
+    }
+    
+    .habit-type-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .info-panel {
+        display: none;
+    }
+    
+    .nav-bar {
+        flex-wrap: wrap;
+    }
+}
