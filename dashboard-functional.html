@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Dashboard - Fully Functional Demo</title>
+    <link rel="stylesheet" href="dashboard-complete-nav.css">
+    <style>
+        .clock-display {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 8px;
+            margin: 10px auto;
+            max-width: 400px;
+            font-weight: 600;
+        }
+        .stats-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 5px;
+        }
+        .demo-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .demo-controls h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .demo-controls button {
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .reset-btn {
+            background: #dc143c;
+            color: white;
+        }
+        .export-btn-small {
+            background: #4682b4;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container" id="appContainer">
+        <!-- Main Menu Screen -->
+        <div class="screen" id="menuScreen">
+            <h1 class="title">Productivity Dashboard</h1>
+            <div class="clock-display" id="currentTime">Loading...</div>
+            <div style="text-align: center; margin: 20px 0;">
+                <span class="stats-badge">Level <span id="menuLevel">1</span></span>
+                <span class="stats-badge"><span id="menuXP">0</span> XP</span>
+                <span class="stats-badge">🔥 <span id="menuStreak">0</span> day streak</span>
+            </div>
+            <div class="menu-buttons">
+                <button class="menu-btn dashboard-btn" onclick="navigateTo('dashboard')">📊 Dashboard</button>
+                <button class="menu-btn charts-btn" onclick="navigateTo('charts')">📈 Charts</button>
+                <button class="menu-btn gamified-btn" onclick="navigateTo('gamified')">🎮 Gamified View</button>
+                <button class="menu-btn settings-btn" onclick="navigateTo('settings')">⚙️ Settings</button>
+            </div>
+            <div class="feature-badge">Fully Functional - All Data Persists ✓</div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div class="screen hidden" id="dashboardScreen">
+            <div class="nav-bar">
+                <button class="nav-btn menu-nav" onclick="navigateTo('menu')">Menu</button>
+                <button class="nav-btn charts-nav" onclick="navigateTo('charts')">Charts</button>
+                <button class="nav-btn gamified-nav" onclick="navigateTo('gamified')">Gamified</button>
+                <button class="nav-btn settings-nav" onclick="navigateTo('settings')">Settings</button>
+            </div>
+
+            <h2 class="screen-title">Dashboard - Multi-Type Habit Logging</h2>
+            <div class="clock-display" id="currentTime2">Loading...</div>
+            
+            <div class="habit-types-section">
+                <h3>Select Habit:</h3>
+                <div class="habit-type-buttons">
+                    <button class="habit-type-btn active" onclick="selectHabit('Exercise', 'binary')">💪 Exercise</button>
+                    <button class="habit-type-btn" onclick="selectHabit('Water', 'count')">💧 Water</button>
+                    <button class="habit-type-btn" onclick="selectHabit('Reading', 'duration')">📚 Reading</button>
+                    <button class="habit-type-btn" onclick="selectHabit('Push-ups', 'count')">🏋️ Push-ups</button>
+                    <button class="habit-type-btn" onclick="selectHabit('Meditation', 'duration')">🧘 Meditation</button>
+                    <button class="habit-type-btn" onclick="selectHabit('Study', 'duration')">📖 Study</button>
+                </div>
+            </div>
+
+            <div class="input-controls-section">
+                <div class="input-instruction" id="inputInstruction">
+                    Selected: <span id="selectedHabit">Exercise</span> - <span id="inputType">Check if completed</span>
+                </div>
+
+                <div class="input-control binary-input" id="binaryInput">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="binaryCheckbox">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-label">Completed today</span>
+                    </label>
+                </div>
+
+                <div class="input-control count-input hidden" id="countInput">
+                    <label for="countValue">Count:</label>
+                    <input type="number" id="countValue" min="1" max="999" placeholder="e.g., 8">
+                    <span class="unit-label" id="countUnit">times</span>
+                </div>
+
+                <div class="input-control duration-input hidden" id="durationInput">
+                    <label for="durationValue">Duration (minutes):</label>
+                    <input type="number" id="durationValue" min="1" max="999" placeholder="e.g., 30">
+                    <span class="unit-label">minutes</span>
+                </div>
+
+                <button class="log-btn" onclick="logHabitEnhanced()">Log Habit & Earn XP</button>
+            </div>
+
+            <div class="habits-list-section">
+                <h3 class="list-title">Today's Habits (<span id="habitCount">0</span> logged):</h3>
+                <ul id="habitsList" class="habits-list">
+                    <li class="empty-message">No habits logged yet today. Start tracking!</li>
+                </ul>
+            </div>
+
+            <div class="feedback-overlay hidden" id="feedbackOverlay">
+                <div class="feedback-animation">
+                    <div class="feedback-circle"></div>
+                    <div class="feedback-text">Logged! ✓</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Screen -->
+        <div class="screen hidden" id="chartsScreen">
+            <div class="nav-bar">
+                <button class="nav-btn menu-nav" onclick="navigateTo('menu')">Menu</button>
+                <button class="nav-btn dashboard-nav" onclick="navigateTo('dashboard')">Dashboard</button>
+                <button class="nav-btn gamified-nav" onclick="navigateTo('gamified')">Gamified</button>
+                <button class="nav-btn settings-nav" onclick="navigateTo('settings')">Settings</button>
+            </div>
+
+            <h2 class="screen-title">Charts & Analytics</h2>
+            <div class="charts-content">
+                <div class="chart-container">
+                    <h3>Last 7 Days - Habits Logged Per Day</h3>
+                    <div class="bar-chart" id="barChart">
+                        <!-- Dynamically generated -->
+                    </div>
+                </div>
+                <div class="stats-container">
+                    <h3>All-Time Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">💧 Average Water:</span>
+                        <span class="stat-value" id="avgWater">0 glasses</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">📚 Total Reading:</span>
+                        <span class="stat-value" id="totalReading">0 min</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">💪 Exercise Days:</span>
+                        <span class="stat-value" id="exerciseDays">0 days</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gamified Screen -->
+        <div class="screen hidden" id="gamifiedScreen">
+            <div class="nav-bar">
+                <button class="nav-btn menu-nav" onclick="navigateTo('menu')">Menu</button>
+                <button class="nav-btn dashboard-nav" onclick="navigateTo('dashboard')">Dashboard</button>
+                <button class="nav-btn charts-nav" onclick="navigateTo('charts')">Charts</button>
+                <button class="nav-btn settings-nav" onclick="navigateTo('settings')">Settings</button>
+            </div>
+
+            <h2 class="screen-title">Gamified View</h2>
+            <div class="gamification-content">
+                <div class="xp-section">
+                    <h3>Level <span id="userLevel">1</span></h3>
+                    <div class="xp-bar">
+                        <div class="xp-progress" id="xpProgress" style="width: 0%;"></div>
+                    </div>
+                    <p><span id="currentXP">0</span> / <span id="neededXP">100</span> XP</p>
+                    <p class="streak">🔥 <span id="userStreak">0</span>-day streak!</p>
+                </div>
+
+                <div class="achievements-section">
+                    <h3>Achievements</h3>
+                    <div class="achievements-grid" id="achievementsGrid">
+                        <!-- Dynamically generated -->
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 15px;">
+                    <h3 style="margin-bottom: 15px;">🎯 How to Earn XP:</h3>
+                    <div style="line-height: 2;">
+                        <div>☑️ Binary habits (Exercise): <strong>10 XP</strong></div>
+                        <div>🔢 Count habits (Water, Push-ups): <strong>2 XP per unit</strong> (max 50)</div>
+                        <div>⏱️ Duration habits (Reading, Study): <strong>1 XP per minute</strong> (max 100)</div>
+                        <div style="margin-top: 10px; color: #667eea; font-weight: 600;">💡 Level up every 100 XP!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div class="screen hidden" id="settingsScreen">
+            <div class="nav-bar">
+                <button class="nav-btn menu-nav" onclick="navigateTo('menu')">Menu</button>
+                <button class="nav-btn dashboard-nav" onclick="navigateTo('dashboard')">Dashboard</button>
+                <button class="nav-btn charts-nav" onclick="navigateTo('charts')">Charts</button>
+                <button class="nav-btn gamified-nav" onclick="navigateTo('gamified')">Gamified</button>
+            </div>
+
+            <h2 class="screen-title">Settings</h2>
+            <div class="settings-content">
+                <div class="setting-group">
+                    <h3>🔔 Notifications</h3>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="notificationsToggle" checked onchange="toggleNotifications()">
+                        <span class="toggle-label">Daily reminders</span>
+                    </label>
+                </div>
+
+                <div class="setting-group">
+                    <h3>🎨 Theme</h3>
+                    <div class="theme-buttons">
+                        <button class="theme-btn active" onclick="changeTheme('Light')">Light</button>
+                        <button class="theme-btn" onclick="changeTheme('Dark')">Dark</button>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>🎯 Daily Goal</h3>
+                    <div class="goal-controls">
+                        <button class="goal-btn" onclick="changeGoal(-1)">-</button>
+                        <span class="goal-value" id="goalValue">5</span>
+                        <button class="goal-btn" onclick="changeGoal(1)">+</button>
+                        <span class="goal-label">habits per day</span>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h3>💾 Data Management</h3>
+                    <button class="action-btn export-btn" onclick="exportData()">📥 Export Data (JSON)</button>
+                    <button class="action-btn clear-btn" onclick="clearAllData()">🗑️ Clear All Data</button>
+                    <p style="margin-top: 15px; color: #999; font-size: 13px;">
+                        ⚠️ "Clear All Data" will reset everything for a fresh demo.
+                    </p>
+                </div>
+
+                <div class="setting-group about-section">
+                    <h3>ℹ️ About</h3>
+                    <p><strong>Productivity Dashboard v2.0</strong></p>
+                    <p>Fully Functional Demo Version</p>
+                    <p>Features: Real-time tracking, XP system, achievements, data persistence</p>
+                    <p style="margin-top: 10px; padding: 10px; background: #e6f0ff; border-radius: 8px; font-size: 13px;">
+                        <strong>💡 For Instructors:</strong> Use "Clear All Data" in Settings to reset the demo and see the experience from scratch. All data is saved in your browser's localStorage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Controls Panel -->
+    <div class="demo-controls">
+        <h4>📊 Quick Stats</h4>
+        <div style="font-size: 12px; line-height: 1.6; color: #666; margin-bottom: 10px;">
+            <div>Level: <strong><span id="quickLevel">1</span></strong></div>
+            <div>XP: <strong><span id="quickXP">0</span></strong></div>
+            <div>Habits: <strong><span id="quickHabits">0</span></strong></div>
+        </div>
+        <button class="export-btn-small" onclick="exportData()">Export Data</button>
+        <button class="reset-btn" onclick="clearAllData()">Reset Demo</button>
+    </div>
+
+    <div class="info-panel">
+        <h4>✨ Fully Functional Demo</h4>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Live Data:</strong> All habits saved to browser
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Real XP:</strong> Earn points from every logged habit
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Dynamic Charts:</strong> Updates with your actual data
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Achievements:</strong> Unlock as you progress
+        </div>
+        <div class="status-item">
+            <span class="status-check">✅</span>
+            <strong>Streak Tracking:</strong> Daily login rewards
+        </div>
+        <div class="tech-note">
+            <strong>🎓 For Demo:</strong> Everything works in real-time!<br>
+            Log habits → Earn XP → See charts update → Unlock achievements<br>
+            Use "Reset Demo" to start fresh for your class presentation.
+        </div>
+    </div>
+
+    <script src="dashboard-functional.js"></script>
+    <script>
+        // Update quick stats panel
+        setInterval(() => {
+            if (document.getElementById('quickLevel')) {
+                document.getElementById('quickLevel').textContent = userLevel;
+                document.getElementById('quickXP').textContent = userXP;
+                document.getElementById('quickHabits').textContent = loggedHabits.length;
+                document.getElementById('menuLevel').textContent = userLevel;
+                document.getElementById('menuXP').textContent = userXP;
+                document.getElementById('menuStreak').textContent = userStreak;
+                if (document.getElementById('currentTime2')) {
+                    document.getElementById('currentTime2').textContent = document.getElementById('currentTime').textContent;
+                }
+            }
+        }, 500);
+    </script>
+</body>
+</html>
