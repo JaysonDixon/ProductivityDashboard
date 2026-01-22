@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Multi-Type Habit Logging</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard-container {
+            width: 900px;
+            max-width: 95vw;
+            background: #f0f0f5;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .dashboard-title {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Habit Types Section */
+        .habit-types-section {
+            margin-bottom: 30px;
+        }
+
+        .habit-types-section h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .habit-type-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .habit-type-btn {
+            padding: 15px;
+            background: linear-gradient(135deg, #6495ed 0%, #7aa5ff 100%);
+            color: white;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .habit-type-btn:hover {
+            background: linear-gradient(135deg, #7aa5ff 0%, #8ab5ff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(100, 149, 237, 0.3);
+        }
+
+        .habit-type-btn.active {
+            background: linear-gradient(135deg, #4169e1 0%, #5179f1 100%);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Input Controls Section */
+        .input-controls-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-instruction {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-left: 4px solid #4682b4;
+            border-radius: 4px;
+        }
+
+        #selectedHabit {
+            font-weight: bold;
+            color: #4169e1;
+        }
+
+        #inputType {
+            color: #666;
+        }
+
+        .input-control {
+            margin: 20px 0;
+        }
+
+        /* Binary Input (Checkbox) */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            margin-right: 15px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            accent-color: #3cb371;
+        }
+
+        .checkbox-label {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Count & Duration Input */
+        .count-input label, .duration-input label {
+            display: inline-block;
+            margin-right: 10px;
+            color: #555;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .count-input input, .duration-input input {
+            width: 150px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .count-input input:focus, .duration-input input:focus {
+            outline: none;
+            border-color: #4682b4;
+            box-shadow: 0 0 0 3px rgba(70, 130, 180, 0.1);
+        }
+
+        .unit-label {
+            color: #888;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .log-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3cb371 0%, #4cc381 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .log-btn:hover {
+            background: linear-gradient(135deg, #4cc381 0%, #5cd391 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(60, 179, 113, 0.4);
+        }
+
+        .log-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Habits List */
+        .habits-list-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-title {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .habits-list {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .empty-message {
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .habit-item {
+            display: grid;
+            grid-template-columns: 40px 1fr 150px 100px;
+            gap: 10px;
+            align-items: center;
+            padding: 15px;
+            background: #f8f8f8;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #4682b4;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .habit-icon {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .habit-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .habit-value {
+            color: #3cb371;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .habit-time {
+            color: #999;
+            font-size: 13px;
+            text-align: right;
+        }
+
+        /* Feedback Animation */
+        .feedback-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+
+        .feedback-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .feedback-animation {
+            text-align: center;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .feedback-circle {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #3cb371 0%, #4cc381 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(60, 179, 113, 0.6);
+        }
+
+        .feedback-checkmark {
+            font-size: 60px;
+            color: white;
+        }
+
+        .feedback-text {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px;
+            }
+
+            .habit-type-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .habit-item {
+                grid-template-columns: 30px 1fr 100px;
+                font-size: 14px;
+            }
+
+            .habit-time {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">🎯 Multi-Type Habit Logging Dashboard</h1>
+        
+        <!-- Habit Type Selection -->
+        <div class="habit-types-section">
+            <h3>Select Habit:</h3>
+            <div class="habit-type-buttons">
+                <button class="habit-type-btn active" onclick="selectHabit('Exercise', 'binary')">💪 Exercise</button>
+                <button class="habit-type-btn" onclick="selectHabit('Water', 'count')">💧 Water</button>
+                <button class="habit-type-btn" onclick="selectHabit('Reading', 'duration')">📚 Reading</button>
+                <button class="habit-type-btn" onclick="selectHabit('Push-ups', 'count')">🏋️ Push-ups</button>
+                <button class="habit-type-btn" onclick="selectHabit('Meditation', 'duration')">🧘 Meditation</button>
+                <button class="habit-type-btn" onclick="selectHabit('Study', 'duration')">📖 Study</button>
+            </div>
+        </div>
+
+        <!-- Input Controls Section -->
+        <div class="input-controls-section">
+            <div class="input-instruction">
+                Selected: <span id="selectedHabit">Exercise</span> - <span id="inputType">Check if completed</span>
+            </div>
+
+            <!-- Binary Input (Checkbox) -->
+            <div class="input-control binary-input" id="binaryInput">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="binaryCheckbox">
+                    <span class="checkbox-label">✓ Completed today</span>
+                </label>
+            </div>
+
+            <!-- Count Input (Numeric) -->
+            <div class="input-control count-input hidden" id="countInput">
+                <label for="countValue">Count:</label>
+                <input type="number" id="countValue" min="1" max="999" placeholder="e.g., 8">
+                <span class="unit-label" id="countUnit">times</span>
+            </div>
+
+            <!-- Duration Input (Minutes) -->
+            <div class="input-control duration-input hidden" id="durationInput">
+                <label for="durationValue">Duration:</label>
+                <input type="number" id="durationValue" min="1" max="999" placeholder="e.g., 30">
+                <span class="unit-label">minutes</span>
+            </div>
+
+            <button class="log-btn" onclick="logHabitEnhanced()">📝 Log Habit</button>
+        </div>
+
+        <!-- Logged Habits List -->
+        <div class="habits-list-section">
+            <h3 class="list-title">Today's Habits (<span id="habitCount">0</span> logged):</h3>
+            <ul id="habitsList" class="habits-list">
+                <li class="empty-message">No habits logged yet. Start tracking!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Feedback Animation -->
+    <div class="feedback-overlay hidden" id="feedbackOverlay">
+        <div class="feedback-animation">
+            <div class="feedback-circle">
+                <span class="feedback-checkmark">✓</span>
+            </div>
+            <div class="feedback-text">Logged!</div>
+        </div>
+    </div>
+
+    <script>
+        let loggedHabits = [];
+        let selectedHabitName = 'Exercise';
+        let selectedHabitType = 'binary';
+
+        function selectHabit(habitName, habitType) {
+            selectedHabitName = habitName;
+            selectedHabitType = habitType;
+
+            document.querySelectorAll('.habit-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            document.getElementById('selectedHabit').textContent = habitName;
+            
+            let typeText = '';
+            let unitText = 'times';
+            
+            switch(habitType) {
+                case 'binary':
+                    typeText = 'Check if completed';
+                    break;
+                case 'count':
+                    typeText = 'Enter count';
+                    if (habitName === 'Water') unitText = 'glasses';
+                    else if (habitName === 'Push-ups') unitText = 'reps';
+                    break;
+                case 'duration':
+                    typeText = 'Enter minutes';
+                    break;
+            }
+            
+            document.getElementById('inputType').textContent = typeText;
+            if (document.getElementById('countUnit')) {
+                document.getElementById('countUnit').textContent = unitText;
+            }
+
+            document.getElementById('binaryInput').classList.add('hidden');
+            document.getElementById('countInput').classList.add('hidden');
+            document.getElementById('durationInput').classList.add('hidden');
+
+            if (habitType === 'binary') {
+                document.getElementById('binaryInput').classList.remove('hidden');
+            } else if (habitType === 'count') {
+                document.getElementById('countInput').classList.remove('hidden');
+            } else if (habitType === 'duration') {
+                document.getElementById('durationInput').classList.remove('hidden');
+            }
+
+            document.getElementById('binaryCheckbox').checked = false;
+            document.getElementById('countValue').value = '';
+            document.getElementById('durationValue').value = '';
+
+            console.log(`Selected habit: ${habitName} (${habitType})`);
+        }
+
+        function logHabitEnhanced() {
+            let value = 0;
+            let displayValue = '';
+
+            switch(selectedHabitType) {
+                case 'binary':
+                    value = document.getElementById('binaryCheckbox').checked ? 1 : 0;
+                    displayValue = value ? '✓ Done' : '✗ Not done';
+                    if (value === 0) {
+                        alert('Please check the box to mark as completed!');
+                        return;
+                    }
+                    break;
+                case 'count':
+                    const countInput = document.getElementById('countValue').value;
+                    if (!countInput || countInput <= 0) {
+                        alert('Please enter a valid count!');
+                        return;
+                    }
+                    value = parseInt(countInput);
+                    let unit = document.getElementById('countUnit').textContent;
+                    displayValue = `${value} ${unit}`;
+                    break;
+                case 'duration':
+                    const durationInput = document.getElementById('durationValue').value;
+                    if (!durationInput || durationInput <= 0) {
+                        alert('Please enter valid minutes!');
+                        return;
+                    }
+                    value = parseInt(durationInput);
+                    displayValue = `${value} min`;
+                    break;
+            }
+
+            const habit = {
+                name: selectedHabitName,
+                type: selectedHabitType,
+                value: value,
+                displayValue: displayValue,
+                timestamp: new Date().toLocaleTimeString()
+            };
+
+            loggedHabits.push(habit);
+            updateHabitsList();
+            showFeedback();
+            
+            document.getElementById('binaryCheckbox').checked = false;
+            document.getElementById('countValue').value = '';
+            document.getElementById('durationValue').value = '';
+
+            console.log(`[LOGGED] ${habit.name} - ${habit.displayValue} at ${habit.timestamp}`);
+        }
+
+        function updateHabitsList() {
+            const habitsList = document.getElementById('habitsList');
+            const habitCount = document.getElementById('habitCount');
+            
+            habitCount.textContent = loggedHabits.length;
+            
+            if (loggedHabits.length === 0) {
+                habitsList.innerHTML = '<li class="empty-message">No habits logged yet. Start tracking!</li>';
+                return;
+            }
+
+            habitsList.innerHTML = '';
+            
+            loggedHabits.forEach((habit, index) => {
+                const li = document.createElement('li');
+                li.className = 'habit-item';
+                
+                let icon = '';
+                switch(habit.type) {
+                    case 'binary': icon = '☑️'; break;
+                    case 'count': icon = '🔢'; break;
+                    case 'duration': icon = '⏱️'; break;
+                }
+                
+                li.innerHTML = `
+                    <span class="habit-icon">${icon}</span>
+                    <span class="habit-name">${habit.name}</span>
+                    <span class="habit-value">${habit.displayValue}</span>
+                    <span class="habit-time">${habit.timestamp}</span>
+                `;
+                habitsList.appendChild(li);
+            });
+        }
+
+        function showFeedback() {
+            const overlay = document.getElementById('feedbackOverlay');
+            overlay.classList.remove('hidden');
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 1500);
+        }
+
+        console.log('Dashboard loaded - T2 Enhanced Multi-Type Habit Logging');
+        console.log('Features: Binary (checkbox), Count (numeric), Duration (time)');
+    </script>
+</body>
+</html>
