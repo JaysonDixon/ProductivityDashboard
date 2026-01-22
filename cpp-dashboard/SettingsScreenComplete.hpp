@@ -1,5 +1,6 @@
 // SettingsScreenComplete.hpp
 // Complete Settings Implementation
+// WITH NAVIGATION BUTTONS TO OTHER SCREENS
 
 #ifndef SETTINGS_SCREEN_COMPLETE_HPP
 #define SETTINGS_SCREEN_COMPLETE_HPP
@@ -14,6 +15,9 @@ private:
     sf::Font* font;
     sf::Text title;
     Button backButton;
+    Button dashboardButton;
+    Button chartsButton;
+    Button gamifiedButton;
     std::function<void(ScreenType)> onNavigate;
     
     // Settings categories
@@ -42,7 +46,13 @@ private:
 public:
     SettingsScreenComplete(sf::Font& screenFont, std::function<void(ScreenType)> navigateCallback)
         : font(&screenFont), onNavigate(navigateCallback),
-          backButton(20.f, 20.f, 100.f, 40.f, "Back", *font),
+          backButton(20.f, 20.f, 80.f, 35.f, "Menu", *font),
+          dashboardButton(110.f, 20.f, 110.f, 35.f, "Dashboard", *font,
+                         sf::Color(70, 130, 180), sf::Color(100, 160, 210), sf::Color(50, 110, 160)),
+          chartsButton(230.f, 20.f, 80.f, 35.f, "Charts", *font,
+                      sf::Color(60, 179, 113), sf::Color(90, 209, 143), sf::Color(40, 159, 93)),
+          gamifiedButton(320.f, 20.f, 100.f, 35.f, "Gamified", *font,
+                        sf::Color(255, 140, 0), sf::Color(255, 170, 50), sf::Color(225, 120, 0)),
           notificationToggle(450.f, 110.f, 100.f, 35.f, "ON", *font,
                             sf::Color(60, 179, 113), sf::Color(90, 209, 143), sf::Color(40, 159, 93)),
           lightThemeBtn(350.f, 180.f, 100.f, 35.f, "Light", *font),
@@ -63,7 +73,7 @@ public:
         title.setString("Settings");
         title.setCharacterSize(32);
         title.setFillColor(sf::Color(50, 50, 50));
-        title.setPosition(200.f, 20.f);
+        title.setPosition(430.f, 22.f);
 
         // Notifications Section
         notificationsTitle.setFont(*font);
@@ -112,11 +122,24 @@ public:
         aboutText.setFillColor(sf::Color(100, 100, 100));
         aboutText.setPosition(150.f, 430.f);
 
-        // Set up button callbacks
+        // Set up button callbacks - Navigation
         backButton.setOnClick([this]() {
             if (onNavigate) onNavigate(ScreenType::MENU);
         });
 
+        dashboardButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::DASHBOARD);
+        });
+
+        chartsButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::CHARTS);
+        });
+
+        gamifiedButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::GAMIFIED);
+        });
+
+        // Settings callbacks
         notificationToggle.setOnClick([this]() {
             toggleNotifications();
         });
@@ -149,7 +172,6 @@ public:
 
         exportDataBtn.setOnClick([this]() {
             std::cout << "Exporting data to CSV..." << std::endl;
-            // Simulate export
         });
 
         clearDataBtn.setOnClick([this]() {
@@ -159,9 +181,6 @@ public:
 
     void toggleNotifications() {
         notificationsEnabled = !notificationsEnabled;
-        notificationToggle.setOnClick([this]() {
-            toggleNotifications();
-        });
         std::cout << "Notifications " << (notificationsEnabled ? "enabled" : "disabled") << std::endl;
     }
 
@@ -173,6 +192,9 @@ public:
 
     void handleEvent(const sf::Event& event, const sf::RenderWindow& window) override {
         backButton.handleEvent(event, window);
+        dashboardButton.handleEvent(event, window);
+        chartsButton.handleEvent(event, window);
+        gamifiedButton.handleEvent(event, window);
         notificationToggle.handleEvent(event, window);
         lightThemeBtn.handleEvent(event, window);
         darkThemeBtn.handleEvent(event, window);
@@ -184,6 +206,9 @@ public:
 
     void update(float deltaTime) override {
         backButton.update();
+        dashboardButton.update();
+        chartsButton.update();
+        gamifiedButton.update();
         notificationToggle.update();
         lightThemeBtn.update();
         darkThemeBtn.update();
@@ -196,6 +221,9 @@ public:
     void draw(sf::RenderWindow& window) override {
         window.draw(title);
         backButton.draw(window);
+        dashboardButton.draw(window);
+        chartsButton.draw(window);
+        gamifiedButton.draw(window);
         
         // Notifications
         window.draw(notificationsTitle);

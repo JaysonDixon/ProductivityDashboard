@@ -1,5 +1,6 @@
 // ChartsScreenComplete.hpp
 // Complete Charts Implementation with 6 Days Sample Data
+// WITH NAVIGATION BUTTONS TO OTHER SCREENS
 
 #ifndef CHARTS_SCREEN_COMPLETE_HPP
 #define CHARTS_SCREEN_COMPLETE_HPP
@@ -16,6 +17,9 @@ private:
     sf::Font* font;
     sf::Text title;
     Button backButton;
+    Button dashboardButton;
+    Button gamifiedButton;
+    Button settingsButton;
     std::function<void(ScreenType)> onNavigate;
     ChartsDataModel dataModel;
     
@@ -27,13 +31,19 @@ private:
 public:
     ChartsScreenComplete(sf::Font& screenFont, std::function<void(ScreenType)> navigateCallback)
         : font(&screenFont), onNavigate(navigateCallback),
-          backButton(20.f, 20.f, 100.f, 40.f, "Back", *font) {
+          backButton(20.f, 20.f, 80.f, 35.f, "Menu", *font),
+          dashboardButton(110.f, 20.f, 110.f, 35.f, "Dashboard", *font,
+                         sf::Color(70, 130, 180), sf::Color(100, 160, 210), sf::Color(50, 110, 160)),
+          gamifiedButton(230.f, 20.f, 100.f, 35.f, "Gamified", *font,
+                        sf::Color(255, 140, 0), sf::Color(255, 170, 50), sf::Color(225, 120, 0)),
+          settingsButton(340.f, 20.f, 90.f, 35.f, "Settings", *font,
+                        sf::Color(147, 112, 219), sf::Color(177, 142, 249), sf::Color(127, 92, 199)) {
         
         title.setFont(*font);
         title.setString("Charts & Analytics");
         title.setCharacterSize(32);
         title.setFillColor(sf::Color(50, 50, 50));
-        title.setPosition(200.f, 20.f);
+        title.setPosition(440.f, 22.f);
 
         statsText.setFont(*font);
         statsText.setCharacterSize(16);
@@ -43,8 +53,21 @@ public:
         updateStats();
         createCharts();
 
+        // Navigation button callbacks
         backButton.setOnClick([this]() {
             if (onNavigate) onNavigate(ScreenType::MENU);
+        });
+
+        dashboardButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::DASHBOARD);
+        });
+
+        gamifiedButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::GAMIFIED);
+        });
+
+        settingsButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::SETTINGS);
         });
     }
 
@@ -99,15 +122,24 @@ public:
 
     void handleEvent(const sf::Event& event, const sf::RenderWindow& window) override {
         backButton.handleEvent(event, window);
+        dashboardButton.handleEvent(event, window);
+        gamifiedButton.handleEvent(event, window);
+        settingsButton.handleEvent(event, window);
     }
 
     void update(float deltaTime) override {
         backButton.update();
+        dashboardButton.update();
+        gamifiedButton.update();
+        settingsButton.update();
     }
 
     void draw(sf::RenderWindow& window) override {
         window.draw(title);
         backButton.draw(window);
+        dashboardButton.draw(window);
+        gamifiedButton.draw(window);
+        settingsButton.draw(window);
         window.draw(statsText);
         
         // Draw chart axes

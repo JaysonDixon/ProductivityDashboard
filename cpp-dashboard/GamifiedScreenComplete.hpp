@@ -1,5 +1,6 @@
 // GamifiedScreenComplete.hpp
 // Complete Gamification with Goals, Rewards, and Leaderboard
+// WITH NAVIGATION BUTTONS TO OTHER SCREENS
 
 #ifndef GAMIFIED_SCREEN_COMPLETE_HPP
 #define GAMIFIED_SCREEN_COMPLETE_HPP
@@ -16,6 +17,9 @@ private:
     sf::Font* font;
     sf::Text title;
     Button backButton;
+    Button dashboardButton;
+    Button chartsButton;
+    Button settingsButton;
     std::function<void(ScreenType)> onNavigate;
     GamificationModel gamification;
     
@@ -33,13 +37,19 @@ private:
 public:
     GamifiedScreenComplete(sf::Font& screenFont, std::function<void(ScreenType)> navigateCallback)
         : font(&screenFont), onNavigate(navigateCallback),
-          backButton(20.f, 20.f, 100.f, 40.f, "Back", *font) {
+          backButton(20.f, 20.f, 80.f, 35.f, "Menu", *font),
+          dashboardButton(110.f, 20.f, 110.f, 35.f, "Dashboard", *font,
+                         sf::Color(70, 130, 180), sf::Color(100, 160, 210), sf::Color(50, 110, 160)),
+          chartsButton(230.f, 20.f, 80.f, 35.f, "Charts", *font,
+                      sf::Color(60, 179, 113), sf::Color(90, 209, 143), sf::Color(40, 159, 93)),
+          settingsButton(320.f, 20.f, 90.f, 35.f, "Settings", *font,
+                        sf::Color(147, 112, 219), sf::Color(177, 142, 249), sf::Color(127, 92, 199)) {
         
         title.setFont(*font);
         title.setString("Gamified View - Progress & Rewards");
         title.setCharacterSize(28);
         title.setFillColor(sf::Color(50, 50, 50));
-        title.setPosition(150.f, 20.f);
+        title.setPosition(420.f, 22.f);
 
         // Level and XP display
         levelText.setFont(*font);
@@ -90,8 +100,21 @@ public:
         
         updateDisplay();
 
+        // Navigation button callbacks
         backButton.setOnClick([this]() {
             if (onNavigate) onNavigate(ScreenType::MENU);
+        });
+
+        dashboardButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::DASHBOARD);
+        });
+
+        chartsButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::CHARTS);
+        });
+
+        settingsButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::SETTINGS);
         });
     }
 
@@ -178,15 +201,24 @@ public:
 
     void handleEvent(const sf::Event& event, const sf::RenderWindow& window) override {
         backButton.handleEvent(event, window);
+        dashboardButton.handleEvent(event, window);
+        chartsButton.handleEvent(event, window);
+        settingsButton.handleEvent(event, window);
     }
 
     void update(float deltaTime) override {
         backButton.update();
+        dashboardButton.update();
+        chartsButton.update();
+        settingsButton.update();
     }
 
     void draw(sf::RenderWindow& window) override {
         window.draw(title);
         backButton.draw(window);
+        dashboardButton.draw(window);
+        chartsButton.draw(window);
+        settingsButton.draw(window);
         
         // Draw progress section
         window.draw(levelText);
