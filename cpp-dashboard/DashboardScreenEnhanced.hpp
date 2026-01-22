@@ -17,6 +17,9 @@ private:
     sf::Font* font;
     sf::Text title;
     Button backButton;
+    Button chartsButton;
+    Button gamifiedButton;
+    Button settingsButton;
     std::function<void(ScreenType)> onNavigate;
     
     HabitModel habitModel;
@@ -51,7 +54,13 @@ private:
 public:
     DashboardScreenEnhanced(sf::Font& screenFont, std::function<void(ScreenType)> navigateCallback)
         : font(&screenFont), onNavigate(navigateCallback),
-          backButton(20.f, 20.f, 100.f, 40.f, "Back", *font),
+          backButton(20.f, 20.f, 80.f, 35.f, "Menu", *font),
+          chartsButton(110.f, 20.f, 80.f, 35.f, "Charts", *font,
+                      sf::Color(60, 179, 113), sf::Color(90, 209, 143), sf::Color(40, 159, 93)),
+          gamifiedButton(200.f, 20.f, 100.f, 35.f, "Gamified", *font,
+                        sf::Color(255, 140, 0), sf::Color(255, 170, 50), sf::Color(225, 120, 0)),
+          settingsButton(310.f, 20.f, 90.f, 35.f, "Settings", *font,
+                        sf::Color(147, 112, 219), sf::Color(177, 142, 249), sf::Color(117, 82, 189)),
           submitButton(650.f, 350.f, 150.f, 50.f, "Log Habit", *font,
                       sf::Color(60, 179, 113), sf::Color(90, 209, 143), sf::Color(40, 159, 93)),
           checkBoxChecked(false), countInputActive(false), durationInputActive(false),
@@ -62,7 +71,7 @@ public:
         title.setString("Dashboard - Multi-Type Habit Logging");
         title.setCharacterSize(28);
         title.setFillColor(sf::Color(50, 50, 50));
-        title.setPosition(150.f, 20.f);
+        title.setPosition(410.f, 22.f);
 
         // Create habit type buttons
         createHabitTypeButtons();
@@ -124,6 +133,18 @@ public:
 
         backButton.setOnClick([this]() {
             if (onNavigate) onNavigate(ScreenType::MENU);
+        });
+
+        chartsButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::CHARTS);
+        });
+
+        gamifiedButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::GAMIFIED);
+        });
+
+        settingsButton.setOnClick([this]() {
+            if (onNavigate) onNavigate(ScreenType::SETTINGS);
         });
 
         submitButton.setOnClick([this]() {
@@ -257,6 +278,9 @@ public:
 
     void handleEvent(const sf::Event& event, const sf::RenderWindow& window) override {
         backButton.handleEvent(event, window);
+        chartsButton.handleEvent(event, window);
+        gamifiedButton.handleEvent(event, window);
+        settingsButton.handleEvent(event, window);
         submitButton.handleEvent(event, window);
         
         for (auto& btn : habitTypeButtons) {
@@ -313,6 +337,9 @@ public:
 
     void update(float deltaTime) override {
         backButton.update();
+        chartsButton.update();
+        gamifiedButton.update();
+        settingsButton.update();
         submitButton.update();
         
         for (auto& btn : habitTypeButtons) {
@@ -336,6 +363,9 @@ public:
     void draw(sf::RenderWindow& window) override {
         window.draw(title);
         backButton.draw(window);
+        chartsButton.draw(window);
+        gamifiedButton.draw(window);
+        settingsButton.draw(window);
         
         for (auto& btn : habitTypeButtons) {
             btn.draw(window);
