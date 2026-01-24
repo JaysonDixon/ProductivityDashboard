@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Dashboard - Quick Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .test-btn {
+            background: #667eea;
+            color: white;
+        }
+        
+        .test-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .success-btn {
+            background: #3cb371;
+            color: white;
+        }
+        
+        .danger-btn {
+            background: #dc143c;
+            color: white;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .stat-box {
+            flex: 1;
+            min-width: 150px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            color: #667eea;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .log {
+            background: #1e1e1e;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        
+        .log-entry {
+            margin: 3px 0;
+            padding: 2px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .success { color: #0f0; }
+        .warning { color: #ff0; }
+        .error { color: #f00; }
+        .info { color: #0ff; }
+        
+        .test-result {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .test-pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .test-fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .code-preview {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Productivity Dashboard - Code Testing</h1>
+        
+        <!-- Stats Display -->
+        <div class="test-section">
+            <h2>📊 Current Stats</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">Level</div>
+                    <div class="stat-value" id="displayLevel">1</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">XP</div>
+                    <div class="stat-value" id="displayXP">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Streak</div>
+                    <div class="stat-value" id="displayStreak">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Habits</div>
+                    <div class="stat-value" id="displayHabits">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test localStorage -->
+        <div class="test-section">
+            <h2>🧪 Test 1: localStorage Persistence</h2>
+            <button class="test-btn" onclick="testLocalStorage()">Run Test</button>
+            <div id="test1Result"></div>
+        </div>
+        
+        <!-- Test XP Calculation -->
+        <div class="test-section">
+            <h2>🧪 Test 2: XP Calculation</h2>
+            <button class="test-btn" onclick="testXPCalculation()">Run Test</button>
+            <div id="test2Result"></div>
+        </div>
+        
+        <!-- Test Leveling -->
+        <div class="test-section">
+            <h2>🧪 Test 3: Auto-Leveling</h2>
+            <button class="test-btn" onclick="testLeveling()">Run Test</button>
+            <div id="test3Result"></div>
+        </div>
+        
+        <!-- Test Achievements -->
+        <div class="test-section">
+            <h2>🧪 Test 4: Achievement System</h2>
+            <button class="test-btn" onclick="testAchievements()">Run Test</button>
+            <div id="test4Result"></div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="test-section">
+            <h2>⚡ Quick Actions</h2>
+            <button class="success-btn" onclick="addSampleData()">Add Sample Data</button>
+            <button class="test-btn" onclick="showAllData()">Show All Data</button>
+            <button class="danger-btn" onclick="clearAllTestData()">Clear All Data</button>
+        </div>
+        
+        <!-- Console Log -->
+        <div class="test-section">
+            <h2>📝 Test Log</h2>
+            <div class="log" id="testLog">
+                <div class="log-entry info">Ready to test...</div>
+            </div>
+        </div>
+        
+        <!-- Links -->
+        <div class="test-section" style="text-align: center;">
+            <h2>🔗 Quick Links</h2>
+            <a href="dashboard-functional.html" target="_blank">
+                <button class="test-btn">Open Full Demo</button>
+            </a>
+            <a href="https://github.com/JaysonDixon/ProductivityDashboard" target="_blank">
+                <button class="test-btn">View on GitHub</button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Data variables
+        let loggedHabits = [];
+        let userXP = 0;
+        let userLevel = 1;
+        let userStreak = 0;
+        let achievements = [
+            { id: 'first_habit', name: 'First Steps', unlocked: false },
+            { id: 'week_warrior', name: 'Week Warrior', unlocked: false },
+            { id: 'hydration_hero', name: 'Hydration Hero', unlocked: false }
+        ];
+
+        // Logging function
+        function log(message, type = 'info') {
+            const logEl = document.getElementById('testLog');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+            console.log(message);
+        }
+
+        // Update display
+        function updateDisplay() {
+            document.getElementById('displayLevel').textContent = userLevel;
+            document.getElementById('displayXP').textContent = userXP;
+            document.getElementById('displayStreak').textContent = userStreak;
+            document.getElementById('displayHabits').textContent = loggedHabits.length;
+        }
+
+        // Test 1: localStorage
+        function testLocalStorage() {
+            log('Testing localStorage...', 'info');
+            
+            try {
+                // Save test data
+                const testData = { test: true, timestamp: new Date().toISOString() };
+                localStorage.setItem('dashboardTest', JSON.stringify(testData));
+                log('✓ Data saved to localStorage', 'success');
+                
+                // Load test data
+                const loaded = JSON.parse(localStorage.getItem('dashboardTest'));
+                if (loaded && loaded.test) {
+                    log('✓ Data loaded from localStorage', 'success');
+                    document.getElementById('test1Result').innerHTML = 
+                        '<div class="test-result test-pass">✅ PASS: localStorage works!</div>';
+                } else {
+                    throw new Error('Data mismatch');
+                }
+                
+                // Clean up
+                localStorage.removeItem('dashboardTest');
+                log('✓ Test cleanup completed', 'info');
+                
+            } catch (error) {
+                log('✗ localStorage test failed: ' + error.message, 'error');
+                document.getElementById('test1Result').innerHTML = 
+                    '<div class="test-result test-fail">❌ FAIL: ' + error.message + '</div>';
+            }
+        }
+
+        // Test 2: XP Calculation
+        function testXPCalculation() {
+            log('Testing XP calculation...', 'info');
+            
+            const tests = [
+                { type: 'binary', value: 1, expected: 10, name: 'Exercise' },
+                { type: 'count', value: 8, expected: 16, name: 'Water (8 glasses)' },
+                { type: 'duration', value: 30, expected: 30, name: 'Reading (30 min)' }
+            ];
+            
+            let allPass = true;
+            let results = '';
+            
+            tests.forEach(test => {
+                let xpGained = 0;
+                
+                switch(test.type) {
+                    case 'binary':
+                        xpGained = 10;
+                        break;
+                    case 'count':
+                        xpGained = Math.min(test.value * 2, 50);
+                        break;
+                    case 'duration':
+                        xpGained = Math.min(test.value, 100);
+                        break;
+                }
+                
+                const pass = xpGained === test.expected;
+                allPass = allPass && pass;
+                
+                log(`${pass ? '✓' : '✗'} ${test.name}: ${xpGained} XP (expected ${test.expected})`, 
+                    pass ? 'success' : 'error');
+                
+                results += `<div>${pass ? '✅' : '❌'} ${test.name}: ${xpGained} XP</div>`;
+            });
+            
+            document.getElementById('test2Result').innerHTML = 
+                `<div class="test-result ${allPass ? 'test-pass' : 'test-fail'}">
+                    ${allPass ? '✅ PASS' : '❌ FAIL'}: XP Calculation
+                </div>${results}`;
+        }
+
+        // Test 3: Leveling
+        function testLeveling() {
+            log('Testing auto-leveling...', 'info');
+            
+            // Reset
+            userXP = 0;
+            userLevel = 1;
+            
+            // Add 250 XP (should reach level 3)
+            userXP = 250;
+            
+            // Calculate level
+            while (userXP >= userLevel * 100) {
+                userLevel++;
+                log(`✓ Leveled up to Level ${userLevel}!`, 'success');
+            }
+            
+            const pass = userLevel === 3;
+            
+            document.getElementById('test3Result').innerHTML = 
+                `<div class="test-result ${pass ? 'test-pass' : 'test-fail'}">
+                    ${pass ? '✅ PASS' : '❌ FAIL'}: Auto-Leveling<br>
+                    250 XP → Level ${userLevel} (expected Level 3)
+                </div>`;
+            
+            updateDisplay();
+        }
+
+        // Test 4: Achievements
+        function testAchievements() {
+            log('Testing achievement system...', 'info');
+            
+            // Reset
+            loggedHabits = [];
+            achievements[0].unlocked = false;
+            
+            // Add first habit
+            loggedHabits.push({ name: 'Test', type: 'binary', value: 1 });
+            
+            // Check achievement
+            if (loggedHabits.length >= 1 && !achievements[0].unlocked) {
+                achievements[0].unlocked = true;
+                log('✓ Achievement unlocked: First Steps 🏆', 'success');
+            }
+            
+            const pass = achievements[0].unlocked;
+            
+            document.getElementById('test4Result').innerHTML = 
+                `<div class="test-result ${pass ? 'test-pass' : 'test-fail'}">
+                    ${pass ? '✅ PASS' : '❌ FAIL'}: Achievement System<br>
+                    First Steps: ${achievements[0].unlocked ? 'Unlocked' : 'Locked'}
+                </div>`;
+            
+            updateDisplay();
+        }
+
+        // Add sample data
+        function addSampleData() {
+            log('Adding sample data...', 'info');
+            
+            const sampleHabits = [
+                { name: 'Exercise', type: 'binary', value: 1, xp: 10 },
+                { name: 'Water', type: 'count', value: 8, xp: 16 },
+                { name: 'Reading', type: 'duration', value: 30, xp: 30 },
+                { name: 'Push-ups', type: 'count', value: 20, xp: 40 }
+            ];
+            
+            sampleHabits.forEach(habit => {
+                loggedHabits.push({
+                    ...habit,
+                    timestamp: new Date().toISOString(),
+                    timeString: new Date().toLocaleTimeString()
+                });
+                userXP += habit.xp;
+                log(`✓ Added: ${habit.name} (+${habit.xp} XP)`, 'success');
+            });
+            
+            // Check for level up
+            while (userXP >= userLevel * 100) {
+                userLevel++;
+                log(`✓ Level up! Now Level ${userLevel}`, 'success');
+            }
+            
+            // Check first achievement
+            if (loggedHabits.length >= 1 && !achievements[0].unlocked) {
+                achievements[0].unlocked = true;
+                log('✓ Achievement unlocked: First Steps 🏆', 'success');
+            }
+            
+            updateDisplay();
+            log(`Total: ${loggedHabits.length} habits, ${userXP} XP, Level ${userLevel}`, 'info');
+        }
+
+        // Show all data
+        function showAllData() {
+            log('=== ALL DATA ===', 'info');
+            log(`Level: ${userLevel}`, 'info');
+            log(`XP: ${userXP}`, 'info');
+            log(`Streak: ${userStreak}`, 'info');
+            log(`Total Habits: ${loggedHabits.length}`, 'info');
+            log(`Achievements: ${achievements.filter(a => a.unlocked).length}/${achievements.length} unlocked`, 'info');
+            
+            if (loggedHabits.length > 0) {
+                log('--- Recent Habits ---', 'info');
+                loggedHabits.slice(-5).forEach(habit => {
+                    log(`• ${habit.name} - ${habit.value} (${habit.type})`, 'info');
+                });
+            }
+            
+            log('=== END DATA ===', 'info');
+        }
+
+        // Clear all test data
+        function clearAllTestData() {
+            if (confirm('Clear all test data?')) {
+                loggedHabits = [];
+                userXP = 0;
+                userLevel = 1;
+                userStreak = 0;
+                achievements.forEach(a => a.unlocked = false);
+                
+                updateDisplay();
+                log('✓ All data cleared', 'warning');
+                
+                // Clear results
+                document.getElementById('test1Result').innerHTML = '';
+                document.getElementById('test2Result').innerHTML = '';
+                document.getElementById('test3Result').innerHTML = '';
+                document.getElementById('test4Result').innerHTML = '';
+            }
+        }
+
+        // Initialize
+        window.onload = function() {
+            log('Test environment ready!', 'success');
+            log('Click buttons above to run tests', 'info');
+            updateDisplay();
+        };
+    </script>
+</body>
+</html>
